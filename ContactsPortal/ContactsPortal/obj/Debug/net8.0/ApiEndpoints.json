@@ -1,0 +1,91 @@
+[
+  {
+    "ContainingType": "ContactsPortal.Controllers.ContactController",
+    "Method": "ContactList",
+    "RelativePath": "api/Contact",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ContactsPortal.Controllers.ContactController",
+    "Method": "SaveContact",
+    "RelativePath": "api/Contact",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "viewModel",
+        "Type": "ContactsPortal.Models.Contact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ContactsPortal.Controllers.ContactController",
+    "Method": "UpdateContact",
+    "RelativePath": "api/Contact/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "viewModel",
+        "Type": "ContactsPortal.Models.Contact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ContactsPortal.Controllers.ContactController",
+    "Method": "DeleteContact",
+    "RelativePath": "api/Contact/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ContactsPortal.Controllers.ContactGroupController",
+    "Method": "ContactGroupList",
+    "RelativePath": "api/ContactGroup",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ContactsPortal.Controllers.ContactGroupController",
+    "Method": "SaveContactGroup",
+    "RelativePath": "api/ContactGroup",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "viewModel",
+        "Type": "ContactsPortal.Models.ContactGroup",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

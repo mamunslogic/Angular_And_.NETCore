@@ -1,0 +1,154 @@
+<div class="container-fluid">
+    <div class="row p-2 bg-info">
+        <div class="col-6">
+            <h3>Contact List</h3>
+        </div>
+        <div class="col-6 text-end">
+            <button class="btn btn-warning m-2" (click)="openContactGroupModal()">Add Contact Group</button>
+            <button class="btn btn-warning" (click)="openModal()">Add Contact</button>
+        </div>
+    </div>
+    @if(contactList && contactList.length>0){
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Contact Type</th>
+                <th>Contact Group</th>
+                <th class="text-center">In Line</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of contactList; track $index) {
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.phoneNumber}}</td>
+                <td>
+                    <div *ngIf="item.isEdit">
+                        <input type="text" class="form-control" [(ngModel)]="item.contactType" />
+                    </div>
+                    <div *ngIf="!item.isEdit">
+                        {{item.contactType}}
+                    </div>
+                </td>
+                <td>{{item.contactGroupName | uppercase}}</td>
+                <td class="text-center">
+                    <div *ngIf="item.isEdit">
+                        <i class="fa-solid fa-floppy-disk m-2" style="color: green; font-size: 20px;"
+                            (click)="onInlineSave(item)"></i>
+                        <i class="fa-solid fa-xmark" style="color: red; font-size: 20px;"
+                            (click)="item.isEdit=false"></i>
+                    </div>
+                    <div *ngIf="!item.isEdit">
+                        <i class="fa-solid fa-pen-to-square" style="color: black; font-size: 20px;" aria-hidden="true"
+                            (click)="onInlineEdit(item)"></i>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-primary m-2" (click)="onEdit(item)">Edit</button>
+                    <button class="btn btn-sm btn-danger" (click)="onDelete(item)">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }@else {
+    <h5 class="text-center p-5">No contact found.</h5>
+    }
+</div>
+
+<!-- Contact Modal -->
+<div class="modal" id="myModal" #myModal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header bg-info">
+                @if(contactForm.value.id == 0){
+                <h4 class="modal-title">Add Contact</h4>
+                }@else {
+                <h4 class="modal-title">Update Contact</h4>
+                }
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()"></button>
+            </div>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" formControlName="name" name="name" class="form-control"
+                                placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <input type="text" formControlName="phoneNumber" name="phoneNumber" class="form-control"
+                                placeholder="Phone No.">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" formControlName="contactType" name="contactType" class="form-control"
+                                placeholder="Contact Type">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <!-- <input type="text" formControlName="contactGroup" name="contactGroupName"
+                                class="form-control" placeholder="Contact Group"> -->
+                            <select class="form-control" formControlName="contactGroupId" name="contactGroupId">
+                                <option value="" disabled selected>Select a Contact Group</option>
+                                <option *ngFor="let item of contactGroupList" [value]="item.id">
+                                    {{ item.contactGroupName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    @if(contactForm.value.id == 0){
+                    <button type="submit" [disabled]="this.contactForm.invalid" class="btn btn-primary"
+                        data-bs-dismiss="modal">Save</button>
+                    }@else {
+                    <button type="submit" [disabled]="this.contactForm.invalid" class="btn btn-success"
+                        data-bs-dismiss="modal">Update</button>
+                    }
+
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="closeModal()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Group Modal -->
+<div class="modal" id="contactGroupModal" #contactGroupModal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title">Add Contact Group</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    (click)="closeContactGroupModal()"></button>
+            </div>
+            <form [formGroup]="contactGroupForm" (ngSubmit)="onContactGroupSubmit()">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" formControlName="contactGroupName" name="contactGroupName"
+                                class="form-control" placeholder="Contact Group Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" [disabled]="this.contactGroupForm.invalid" class="btn btn-primary"
+                        data-bs-dismiss="modal">Save</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="closeContactGroupModal()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
